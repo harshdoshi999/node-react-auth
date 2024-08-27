@@ -9,7 +9,7 @@ const ResetPassword = () => {
 
   const handleResetPassword = async () => {
     try {
-      await axios.post(`${process.env.REACT_APP_API_BASE_URL}/auth/reset-password`, { token, newPassword });
+      await axios.post('http://localhost:5000/api/auth/reset-password', { token, newPassword });
       alert('Password reset successfully!');
       navigate('/login');
     } catch (error) {
@@ -32,4 +32,8 @@ const ResetPassword = () => {
           Reset Password
         </button>
       </div>
-    </div
+    </div>
+  );
+};
+
+export default ResetPassword;
