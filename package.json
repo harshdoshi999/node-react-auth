@@ -1,0 +1,27 @@
+{
+  "name": "node-react-auth",
+  "version": "1.0.0",
+  "description": "Authentication system with NodeJS (ExpressJS) + ReactJS + TailwindCSS + SQLite",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/harshdoshi999/node-react-auth.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/harshdoshi999/node-react-auth/issues"
+  },
+  "homepage": "https://github.com/harshdoshi999/node-react-auth#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "sqlite3": "^5.1.7"
+  }
+}
