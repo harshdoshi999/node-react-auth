@@ -37,4 +37,43 @@ router.post("/login", (req, res) => {
   });
 });
 
+// Forgot Password
+router.post("/forgot-password", (req, res) => {
+  const { email } = req.body;
+  const resetToken = jwt.sign({ email }, "reset-secret", { expiresIn: "15m" });
+
+  db.run(
+    `UPDATE users SET reset_token = ? WHERE email = ?`,
+    [resetToken, email],
+    function (err) {
+      if (err) return res.status(500).json({ message: "Error updating token" });
+      console.log(
+        `Reset link: http://localhost:3000/reset-password/${resetToken}`
+      );
+      res.json({ message: "Reset link sent to your email" });
+    }
+  );
+});
+
+// Reset Password
+router.post("/reset-password", (req, res) => {
+  const { token, newPassword } = req.body;
+
+  jwt.verify(token, "reset-secret", (err, decoded) => {
+    if (err)
+      return res.status(400).json({ message: "Invalid or expired token" });
+
+    const hashedPassword = bcrypt.hashSync(newPassword, 10);
+    db.run(
+      `UPDATE users SET password = ?, reset_token = NULL WHERE email = ?`,
+      [hashedPassword, decoded.email],
+      function (err) {
+        if (err)
+          return res.status(500).json({ message: "Error resetting password" });
+        res.json({ message: "Password reset successfully" });
+      }
+    );
+  });
+});
+
 module.exports = router;
